@@ -1,0 +1,239 @@
+/* You can add global styles to this file, and also import other style files */
+/* Draggable*/
+
+.drag-border {
+    border: #ff525b dashed 2px;
+}
+
+.drag-handle {
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.drag-handle:active { 
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+/* Droppable */
+
+.drag-hint-border {
+    border: #3c763d dashed 2px;
+}
+
+.drag-over-border {
+    border: #fbbc05 dashed 2px;
+}
+
+.drag-transit {
+    border: #3500FF dashed 2px;
+}
+.list-groupa{
+    /*display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: row !important;*/
+    display: inline-flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+}
+.fixAction{
+    float: right;
+}
+ul.list-groupa > li {
+    margin: 2px;
+}
+.is-sticky{width:100%; border-radius:0 !important; background:#fff !important; box-shadow:0 0 10px #b3b3b3; position:fixed; left:0px; top:0px;}
+.drop-area{
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    /*height: 300px;*/
+    min-height: 300px;
+    border: 1px solid #ededed;
+    -webkit-box-shadow: 0px 0px 5px 0 rgba(204, 204, 204, 0.75);
+-moz-box-shadow: 0px 0px 5px 0 rgba(204, 204, 204, 0.75);
+box-shadow: 0px 0px 5px 0 rgba(204, 204, 204, 0.75);
+    margin: 5px auto;
+    width: 100%;
+    border-radius: 6px;    
+}
+div[ng2-sticky] {
+    margin: 30px 10px 10px 10px;
+    min-width: 400px;
+    text-align: center;
+    background: #333;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 10px;
+    
+}
+.stick{
+    background: #f9f9f9 !important;
+    background-color: #c0c0c0;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:9999999;  
+    left: 235px; 
+}
+.spinnerCon{
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #EEE;
+    padding: 161px;
+    z-index: 9999999;
+    opacity: 0.5;
+}
+.newDiv{
+    top:0;
+    position: absolute;
+    left:0;
+    width:100%;
+    height:100%;
+}
+.remove{
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    background: #eee;
+    width: 22px;
+    height: 21px;
+    text-align: center;
+    line-height: 22px;
+    border: 0;
+    border-radius: 100%;
+}
+.edit{
+    position: absolute;
+    right: 35px;
+    top: 7px;
+}
+.draft {
+    background-image: url("/assets/images/draft.png");
+    height: 20px;
+    width: 25px;
+    background-size: 25px 20px;
+    background-repeat: no-repeat;
+}
+.list-group-item i{
+    color: #838383;
+}
+
+.list-group-item span{
+    font-size: 14px;
+    margin:5px 0 0 5px;
+    font-weight: bold;
+}
+
+.list-group-item{
+    padding: 10px 15px;
+    margin: 5px 0 !important;
+    background-color: inherit;
+    border: 0 none;
+    border-right: 1px dotted #e0e0e0;
+}
+.lrgIcon{
+    line-height: 38px;
+    font-size: 26px;
+}
+.startDiv{
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    z-index:9999 !important
+   /* margin: 5px 0;*/
+    
+}
+
+.form-control{
+    border: 1px solid #ededed;
+    -webkit-box-shadow: 0px 0px 5px 0 rgba(204, 204, 204, 0.75);
+-moz-box-shadow: 0px 0px 5px 0 rgba(204, 204, 204, 0.75);
+box-shadow: 0px 0px 5px 0 rgba(204, 204, 204, 0.75);
+border-radius: 6px;
+}
+.form-group{
+    margin-bottom:25px;
+}
+.topRightLnk{
+    position:absolute;
+    font-size: 14px;
+    font-weight: bold;
+    color: #999;
+    top:13px;
+    border:0;
+    background: transparent;
+}
+.editLnk{
+    right:75px
+}
+.cancelLnk{
+    right:10px;
+}
+label{
+    font-weight:bold;
+}
+
+.list-group-item:last-child{
+    border-right: 0 none;
+}
+.imageDiv{
+    border: 1px solid #ededed;
+    width:200px;
+    height:200px;
+    position:relative;
+}
+.centerClass{
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 42%;
+    
+    
+}
+.centerClass > button{
+    margin: 0 5px 0px 0;
+}
+.flikrDiv{float:left;width:45%;background: #f1f1f1;height: 150px;box-shadow: inset 0 0 5px rgba(0,0,0,0.2);position: relative;text-align: center;}
+.imageUpload{float:left; width:45%;}
+.flikrDiv img {
+    height: 100%;
+}
+.flikrDiv span{
+    position: absolute;
+    top: 64%;
+    left: 50%;
+    font-size:14px;
+    transform: translate(-50%, -50%);
+}
+.modal-content{
+  top: 40px !important;
+}
+@media only screen and (max-width:768px){
+    .list-group-item i{
+        display:block;
+    }
+    .list-group-item span{
+        margin:5px 0 0 0;
+    }
+    .list-group-item{
+        padding: 10px;
+    }
+}
+@media (min-width: 576px){
+.modal-dialog {
+    max-width: 530px;
+}
+}

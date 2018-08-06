@@ -1,0 +1,238 @@
+
+<div class="mainBox">
+        <div class="spinnerCon" [hidden]="!hidespin">
+                <i class="fa fa-circle-o-notch fa-spin" style="font-size:48px;color:red;top:50%;left:50%; transform:translate(-50%,-50%);position:absolute;"></i>
+        </div>
+<div class="startDiv" ng-sticky  [offSet]="0" [addClass]="'is-sticky'"> 
+       
+<div class="panel-body" dnd-sortable-container  [sortableData]="listBoxers" [dropZones]="['source-dropZone']">
+    <ul class="list-groupa" [hidden] ="togglediv">
+       <li class="list-group-item" [hidden] ="!mobileDevice" (click)="togglediv = !togglediv"><i class="lrgIcon fa fa-sliders fa-lg" aria-hidden="true"></i></li> 
+        <li  *ngFor="let item of listBoxers; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i" (click)="appendToContainer($event,item.id)">
+            <div *ngIf="item.id==1; then imgBox"></div>
+            <div *ngIf="item.id==2; then paraBox"></div>
+            <div *ngIf="item.id==3; then embedBox"></div>
+            <div *ngIf="item.id==4; then videoBox"></div>
+            <div *ngIf="item.id==5; then flickrBox"></div>
+            <ng-template #imgBox>
+                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                <span>Image</span>
+            </ng-template>
+            <ng-template #flickrBox>
+                <i class="fa fa-flickr" aria-hidden="true"></i>
+                <span>Flickr</span>
+            </ng-template>
+            <ng-template #paraBox>
+                <i class="fa fa-font" aria-hidden="true"></i>
+                <span>Text</span>
+            </ng-template>
+            <ng-template #embedBox>
+                <i class="fa fa-code" aria-hidden="true"></i>
+                <span>Embed</span>
+            </ng-template>
+            <ng-template #videoBox>
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+                <span>Video</span>
+            </ng-template>
+            
+        </li>
+        </ul>
+        <ul class="list-groupa fixAction" [hidden] = "mobileDevice">
+        <li class="list-group-item">
+            <i class="fa fa-upload" aria-hidden="true"></i>
+            <span (click) = "onCmsSubmit()" >Publish</span>
+        </li>
+        <li class="list-group-item">
+            <i class="fa fa-file-text" aria-hidden="true"></i>
+            <span>Draft</span>
+        </li>
+        <li class="list-group-item">
+            <i class="fa fa-remove" aria-hidden="true"></i>
+            <span>Cancel</span>
+        </li>
+    </ul>
+</div>
+<div [hidden] ="!togglediv">
+    <ul class="list-groupa" >
+        <li class="list-group-item" (click)="togglediv = !togglediv">
+            <i class="lrgIcon fa fa-arrow-circle-left fa-lg " aria-hidden="true"></i>
+        </li> 
+        <li class="list-group-item">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+                <span>Publish</span>
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-file-text" aria-hidden="true"></i>
+                <span>Draft</span>
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-remove" aria-hidden="true"></i>
+                <span>Cancel</span>
+            </li>
+    </ul>
+</div>
+</div>
+  
+<fieldset class="form-group">
+    <label>Title</label>
+    <input class="form-control"  id="title" name ="contentTitle" [(ngModel)]="contentTitle" [ngModelOptions]="{standalone: true}">  
+</fieldset> 
+<fieldset class="form-group">
+    <label>Main Image</label>
+    <input type="radio"  (click)="desktopImage = 1" name="imageFlag" [value]="1" [ngModel]="desktopImage">Upload from Computer
+    <span>&nbsp;</span>
+    <input type="radio"  (click)="desktopImage = 2" name="imageFlag" [value]="2" [ngModel]="desktopImage"> Upload from Flickr
+    <div >
+        <!--<img id ="imageDiv" [src]="mainimageflikr" [(ngModel)]="mainimageflikr" [ngModelOptions]="{standalone: true}" ><span class="centerClass"><button ><i aria-hidden="true" class="fa fa-picture-o"></i></button><button (click) = "open(content,'imageDiv')"><i aria-hidden="true" class="fa fa-flickr"></i></button></span>-->
+        <div *ngIf="desktopImage==1; then mainTmpl"></div>
+        <div *ngIf="desktopImage==2; then flickrTmpl"></div>
+        <ng-template #mainTmpl>
+        <div class="imageUpload"  >
+            <fancy-image-uploader [options]="options"  (onUpload)="onUpload($event,'main')"  id="mainimage" name ="mainimage" [(ngModel)]="mainimage" ></fancy-image-uploader>
+        </div>
+        </ng-template>
+        <ng-template #flickrTmpl>
+        <div class="flikrDiv"  (mouseover)="displayFlickrUpload('flickr-up','block');" (mouseout)="displayFlickrUpload('flickr-up','none');">
+            <img id= "imageDiv" [src] ="mainimageflikr" >
+            <div id="flickr-up">
+            <i aria-hidden="true"  class="centerClass fa fa-flickr fa-3x" (click) = "open(content,'imageDiv',-1)"></i>
+            <span>Flickr Upload</span>
+            </div>
+        </div>
+        </ng-template>
+
+    </div>
+</fieldset>
+
+<div class="drop-area" dnd-sortable-container  [sortableData]="listTeamOne" id="drop_area" (onDropSuccess)="onDrop($event)" [dropZones]="['source-dropZone']">
+     <form role="form" class="formaffix" #cmsForm="ngForm" >    
+    <ul class="list-group" >
+        <li *ngFor="let item of listTeamOne; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i" (onDropSuccess)="onDrop($event)">
+           
+            <div *ngIf="item.id==1; then imgTmpl"></div>
+            <div *ngIf="item.id==2; then pTmpl"></div>
+            <div *ngIf="item.id==3; then embedTmpl"></div>
+            <div *ngIf="item.id==4; then urlTmpl"></div>
+            <div *ngIf="item.id==5; then flickrTmpl"></div>
+    
+            <ng-template #imgTmpl>
+                <fieldset class="form-group" >
+                    <label for="exampleInputFile">Upload Image</label>
+                                           
+                    <fancy-image-uploader  [options]="options"  (onUpload)="onUpload($event,i)"  id="primaryImg{{i}}"  [(ngModel)]="item.img_src" [ngModelOptions]="{standalone: true}"></fancy-image-uploader>
+                </fieldset> 
+                <button type="button" class="remove" (click)="removeInput(i)">X</button>  
+            </ng-template>
+        
+            <ng-template #pTmpl >
+                <label>Story</label>
+                <quill-editor theme="snow" id ="pDesc{{i}}" (onEditorCreated)="setFocus($event)" [modules] = "editorOptions"  [(ngModel)]="item.desc" [ngModelOptions]="{standalone: true}" (clickOutside)="onClickedOutside($event,'text',i,0)" [attachOutsideOnClick]=true  [style.display]="!item.display_flag ? 'block' : 'none'">
+                </quill-editor> 
+               
+                <div class="myClass" [hidden]="!item.display_flag" style="background-color:antiquewhite;" id="showElement{{i}}" (click) = "toggleInput($event,i)" [innerHtml]="item.desc | keepHtml:value:'html'" ></div> 
+                <div class="topRightLnk editLnk" (click) = "triggerFalseClick('showElement',i)">Edit</div>            
+                <button type="button" class="topRightLnk cancelLnk" (click)="removeInput(i)">Cancel</button>                                               
+            </ng-template>
+
+            <ng-template #embedTmpl >
+                <fieldset class="form-group">
+                    <label>Text Embed</label>
+                    <textarea class="form-control"  rows="3" placeholder="Enter embed code"  id = "embed{{i}}" [(ngModel)]="item.code" [ngModelOptions]="{standalone: true}" (blur)="toggleInput($event,i)" [hidden]="item.display_flag" (load)='fireme()' >{{item.code}}</textarea>                                               
+                </fieldset> 
+                <div [innerHtml]="item.code | keepHtml:value:'html'" id="embedDiv{{i}}"(click)="toggleInput($event,i)" [hidden]="!item.display_flag"></div> 
+                <div class="topRightLnk editLnk" (click) ="triggerFalseClick('embedDiv',i)">Edit</div>
+                <button type="button" class="topRightLnk cancelLnk" (click)="removeInput(i)">Cancel</button>  
+            </ng-template>
+            
+            <ng-template #urlTmpl >
+                <fieldset class="form-group">
+                    <label>Add Video</label>
+                    <input class="form-control" placeholder="Enter video Url" id = "url{{i}}"  [(ngModel)]="item.code" [ngModelOptions]="{standalone: true}" (blur)="extractYoutubeVideoId(item.code,i);toggleInput($event,i)" [hidden]="item.display_flag">  
+                </fieldset>
+               
+                <iframe id="urlDiv{{i}}" [hidden]="!item.display_flag" style="width:50%;height:50%;" (click)="toggleInput($event,i)" [src]="item.code | keepHtml:value:'url'" allowfullscreen="true" frameborder="0" ></iframe> 
+               
+                <div class="edit" (click)="triggerFalseClick('urlDiv',i)"><i class="fa fa-edit" ></i></div> 
+                <button type="button" class="remove" (click)="removeInput(i)">X</button>                              
+            </ng-template>
+
+            <ng-template #flickrTmpl >
+                <fieldset class="form-group">
+                    <div class="flikrDiv" style="float:left !important">
+                            <img id= "flickr{{i}}" [src] ="item.img_src" >
+                            <i aria-hidden="true" class="centerClass fa fa-flickr fa-3x" (click) = "open(content,'flickr',i)"></i>
+                            <span>Flickr Upload</span>
+                    </div>
+                    </fieldset>
+              <!--  <div class="edit" (click)="triggerFalseClick('flickr',i)"><i class="fa fa-edit" ></i></div>  -->
+                <button type="button" class="remove" (click)="removeInput(i)">X</button>                              
+            </ng-template>
+        </li>
+    </ul>
+    <input type="hidden"  id="content_id" value="" [(ngModel)]="contentId" [ngModelOptions]="{standalone: true}">
+
+    <input type="hidden"  id="login_uid" value="" [(ngModel)]="login_uid" [ngModelOptions]="{standalone: true}">
+    </form>
+   
+</div>
+
+
+
+
+<ng-template #content let-c="close" let-d="dismiss" id="modalOPen">
+    
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')" style="float: right;
+    position: absolute;
+    right: 0;
+    margin-right: 12px;">
+            <span aria-hidden="true">&times;</span>
+     </button>
+    <main class="container" role="main">
+        <span class="text-center">&nbsp;</span>
+        <div class="row" style="min-height:100px;">
+            <div class="col-lg-12">
+                <form>
+                    <div class="input-group input-group-lg">
+                    <input name ="flickrKeyword" type="text" class="form-control" placeholder="Search for photos..." (keydown)="onKeydown($event)" [(ngModel)] ="flicrKeyword">
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-12" [hidden] = "!flickrFlag">
+                <div style="    height: 320px;
+                overflow: hidden;
+                padding: 0 10px;
+                margin: 10px 0 20px;">
+                <div style="position: relative; height: 320px;">
+                <div style="position: absolute;top: 0px;left: 0px;width: auto;height: auto;max-height: 300px;
+                overflow: hidden;
+                background: #fff;
+                overflow-y: scroll;">
+                    <div>
+                        <div class="clearfix" id="slidepreview-1" *ngFor="let photo of flickrPhotos; let i = index" style="margin: 0 1% 10px;float: left;width: 31.333333%;">
+                            <img [src] = "photo.url" (click) ="flkrImgAdd(photo.url);d('Close click');" style="max-width:135px;max-height:135px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+       
+        <!--<div class="row" ng-if="!isLoading">
+                <div class="col-lg col-lg-12 mt-5 text-center" ng-repeat="photo in recent.photo" ng-if="!gallery.photo">
+                        <h5 class="img-thumbnail__title">{{photo.title}}</h5>
+                        <img class="img-thumbnail" ng-src="http://farm{{photo.farm}}.static.flickr.com/{{photo.server}}/{{photo.id}}_{{photo.secret}}.jpg" alt="{{photo.id}}" role="img" />
+
+                </div>
+        </div>-->
+   <!-- <div class="modal-body">
+      <p>One fine body&hellip;</p>
+    </div>-->
+   <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>-->
+    </main>
+  </ng-template>
+</div>
+
+ 
